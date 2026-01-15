@@ -1,53 +1,42 @@
 from langchain_groq import ChatGroq
 from langchain_core.messages import AIMessage
-import os
 import json
+import re
 
-
-# Khởi tạo LLM (Đảm bảo bạn đã set biến môi trường GROQ_API_KEY)
 llm = ChatGroq(
      temperature=0,
      model_name="llama-3.1-8b-instant",
-     groq_api_key="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" # Hoặc để trong .env
+     groq_api_key="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"
 )
 
 def receptionist_agent(state):
     user_msg = state["messages"][-1].content
-
-#     # Tạo prompt để ép model trả về thông tin cấu trúc
-    prompt = f"""
-    Phân tích yêu cầu du lịch sau của khách hàng: "{user_msg}"
-    Trả về kết quả dưới dạng JSON với 2 trường: 
-    - destination: Tên địa điểm (ví dụ: Đà Lạt, Nha Trang)
-    - duration: Số ngày đi (chỉ lấy số).
-    Nếu không rõ, mặc định là destination: "Unknown" và duration: 3.
-    """
-
-    # Gọi Groq
-    response = llm.invoke(prompt)
     
-    # Ở đây chúng ta tạm thời parse thủ công hoặc dùng JsonOutputParser
-    # Để đơn giản cho bạn chạy ngay:
+    prompt = f"""
+    Dựa trên yêu cầu: "{user_msg}"
+    Hãy trích xuất thông tin du lịch sang JSON.
+    - destination: Tên thành phố (Ví dụ: Hồ Chí Minh, Hà Nội, Đà Nẵng)
+    - duration: Số ngày (chỉ lấy số nguyên)
+
+    Chỉ trả về JSON thuần túy, không giải thích.
+    """
+    
+    response = llm.invoke(prompt)
     content = response.content.strip()
     
     try:
-        data = json.loads(content)
-        destination = data.get("destination", "Unknown")
-        duration = data.get("duration", 3)
-    except Exception:
-        destination = "Unknown"
-        duration = 3
+        match = re.search(r"\{.*\}", content, re.DOTALL)
+        data = json.loads(match.group()) if match else {}
+        dest = data.get("destination", "Hồ Chí Minh")
+        # Chuẩn hóa tên nếu model viết tắt
+        if dest.lower() in ["hcm", "tp hcm", "saigon"]: dest = "Hồ Chí Minh"
+        dur = int(data.get("duration", 5))
+    except:
+        dest = "Hồ Chí Minh"
+        dur = 5
 
     return {
+        "plan_data": {"destination": dest, "duration": dur},
         "next_step": "flight",
-        "messages": [
-            AIMessage(
-                content=f"Đã ghi nhận chuyến đi tới {destination} trong {duration} ngày. Đang tìm chuyến bay."
-            )
-        ],
-        "plan_data": {
-            "destination": destination,
-            "duration": duration
-        }
+        "messages": [AIMessage(content=f"📍 Đã xác nhận điểm đến: {dest} trong {dur} ngày.")]
     }
-
