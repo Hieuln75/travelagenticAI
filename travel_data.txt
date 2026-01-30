@@ -1,0 +1,5 @@
+[HOTEL] Khách sạn Ana Mandara Villas Dalat: Khu nghỉ dưỡng cổ điển, giá 2.500.000 VNĐ/đêm, địa chỉ Lê Lai, Phường 5, Đà Lạt.
+[HOTEL] Khách sạn Terra Cotta Resort: View hồ Tuyền Lâm, giá 1.800.000 VNĐ/đêm, Đà Lạt.
+[FLIGHT] Chuyến bay VN123: Vietnam Airlines, Hà Nội đi Đà Lạt, khởi hành 08:00, giá 1.200.000 VNĐ.
+[FLIGHT] Chuyến bay VJ456: Vietjet Air, TP.HCM đi Phú Quốc, khởi hành 14:30, giá 900.000 VNĐ.
+[HOTEL] InterContinental Phu Quoc: Bãi Trường, Phú Quốc, giá 4.500.000 VNĐ/đêm, có bể bơi vô cực.

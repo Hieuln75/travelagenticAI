@@ -2,11 +2,11 @@ from langchain_core.messages import AIMessage
 from langchain_groq import ChatGroq
 import json
 import re
-
+import os
 llm = ChatGroq(
      temperature=0,
      model_name="llama-3.1-8b-instant",
-     groq_api_key="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"
+      groq_api_key=os.environ["GROQ_API_KEY"]
 )
 
 def flight_agent(state):
