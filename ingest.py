@@ -28,7 +28,7 @@ def run_ingest():
     vector_db = Chroma.from_documents(
         documents=documents,
         embedding=embeddings,
-        persist_directory="./db_travel"
+        persist_directory="./db"
     )
     print("Thành công! Dữ liệu đã được lưu vào thư mục ./db_travel")
 
