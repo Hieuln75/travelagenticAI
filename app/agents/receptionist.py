@@ -37,7 +37,7 @@ def receptionist_agent(state):
         dur = 5
 
     return {
-        "plan_data": {"destination": dest, "duration": dur},
+        "plan_data": {**state.get("plan_data", {}), "destination": dest,"duration": dur},
         "next_step": "flight",
         "messages": [AIMessage(content=f"📍 Đã xác nhận điểm đến: {dest} trong {dur} ngày.")]
     }

@@ -3,3 +3,5 @@
 [FLIGHT] Chuyến bay VN123: Vietnam Airlines, Hà Nội đi Đà Lạt, khởi hành 08:00, giá 1.200.000 VNĐ.
 [FLIGHT] Chuyến bay VJ456: Vietjet Air, TP.HCM đi Phú Quốc, khởi hành 14:30, giá 900.000 VNĐ.
 [HOTEL] InterContinental Phu Quoc: Bãi Trường, Phú Quốc, giá 4.500.000 VNĐ/đêm, có bể bơi vô cực.
+[HOTEL] Novotel Danang Premier Han River: Trung tâm Đà Nẵng, giá 2.200.000 VNĐ/đêm.
+[HOTEL] Furama Resort Danang: Bãi biển Mỹ Khê, giá 3.800.000 VNĐ/đêm.

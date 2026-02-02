@@ -27,19 +27,27 @@ Bạn là trợ lý du lịch.
 Người dùng đi du lịch:
 - Điểm đến: {destination}
 - Số ngày: {duration}
-Dựa trên thông tin thực tế từ database: {context}
-Hãy đề xuất 1 khách sạn phù hợp.
+Dữ liệu từ database (có thể rỗng):
+{context}
 
-CHỈ trả về JSON hợp lệ.
-KHÔNG markdown.
-KHÔNG giải thích.
-KHÔNG text ngoài JSON.
+NHIỆM VỤ:
+- Chọn đúng 1 khách sạn phù hợp tại {destination}.
+- Nếu database có khách sạn tại {destination}, chọn từ database.
+- Nếu database không có, tự chọn 1 khách sạn phổ biến tại {destination}.
+- KHÔNG trả về nhiều lựa chọn.
+- KHÔNG trả về thông tin khác ngoài khách sạn.
+
+CHỈ trả về JSON đúng schema sau.
+BẮT BUỘC đúng schema, không thêm field.
 
 Schema:
 {{
   "name": string,
   "location": string
 }}
+KHÔNG markdown.
+KHÔNG giải thích.
+KHÔNG text ngoài JSON.
 """
 
     response = llm.invoke(prompt)
@@ -61,6 +69,7 @@ Schema:
 
     return {
         "plan_data": {
+            **state.get("plan_data", {}),
             "hotel": hotel
         },
         "next_step": "itinerary",

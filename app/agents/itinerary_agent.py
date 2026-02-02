@@ -30,5 +30,12 @@ def itinerary_agent(state):
         itinerary = response.content
 
     return {
-        "messages": [AIMessage(content=f"✅ Lịch trình {dur} ngày tại {dest} hoàn tất:\n\n{itinerary}")]
+    "plan_data": {
+        **state.get("plan_data", {})
+    },
+    "messages": [
+        AIMessage(
+            content=f"✅ Lịch trình {dur} ngày tại {dest} hoàn tất:\n\n{itinerary}"
+        )
+    ]
     }
